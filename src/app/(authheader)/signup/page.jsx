@@ -6,27 +6,26 @@ import { redirect } from "next/navigation";
 import { toast } from "sonner";
 
 const SignupPage = () => {
-    const onSubmit = async(event) => {
+    const onSubmit = async (event) => {
         event.preventDefault()
         const formData = new FormData(event.currentTarget)
         const signupData = Object.fromEntries(formData.entries())
-        console.log(signupData)
-        const {name , password , email , imageUrl} = signupData
+        const { name, password, email, image } = signupData
 
-        const {data , error} = await authClient.signUp.email({
-            name , 
-            email , 
-            password , 
-            imageUrl , 
+        const { data, error } = await authClient.signUp.email({
+            name,
+            email,
+            password,
+            image
 
         })
-        if(error){
+        if (error) {
             toast.error("please fill all the field up")
-        } else{
+        } else {
             toast.success("Sign Up Successful")
             redirect("/home")
         }
-        
+
     }
     return (
         <div>
@@ -60,13 +59,9 @@ const SignupPage = () => {
                     <Input placeholder="Enter Your Email" />
                     <FieldError />
                 </TextField>
-                 <TextField
-                    isRequired
-                    name="imageUrl"
-                     
-                >
+                <TextField>
                     <Label>Image</Label>
-                    <Input placeholder="Put your image link here" />
+                    <Input name="image" placeholder="paste your photo URL"></Input>
                     <FieldError />
                 </TextField>
                 <TextField

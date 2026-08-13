@@ -1,45 +1,64 @@
-"use client"
 
- 
-import { signOut, useSession } from "@/app/lib/auth-client";
-import { Button } from "@heroui/react";
- 
+
+
+import { useSession } from "@/app/lib/auth-client";
+import { Button, Skeleton } from "@heroui/react";
+
 import Link from "next/link";
+import NavLink from "./NavLink";
+import ProfileDropDown from "./ProfileDropDown/ProfileDropDown";
+import { auth } from "@/app/lib/auth";
+import { headers } from "next/headers";
 
-const Navbar = () => {
-    // const {session , user }= await auth.api.getSession({
-    //     headers: await headers()
-    // })
-    const {data , isPending } = useSession()
-    if(isPending){
-        <div>loading.........</div>
-    }
-    const user = data?.user
+const Navbar = async() => {
+    // const { data, isPending } = useSession()
+    // if (isPending) {
+    //     return (
+    //         <div className="grid grid-cols-3 gap-8">
+    //             <Skeleton className="h-24 w-5/12 ml-4 rounded-xl" />
+    //             <Skeleton className="h-24 rounded-xl" />
+    //             <Skeleton className="h-24 rounded-xl" />
+    //         </div>
+    //     )
+
+
+
+    // }
+    // const user = data?.user
+
+    const session =await auth.api.getSession({
+        headers : await headers()
+    })
+    const user = session?.user
+    
+
     return (
-        <div className="flex justify-between p-5 items-center">
-
-
-
+        <div className="flex justify-between p-5 items-center bg-gray-200">
 
             {/* logo/name */}
             <Link href={'/'}>
-            
-            <div className="text-3xl font-bold p-3">
-                StudyNook
-            </div></Link>
 
-
-
-
+                <div className="text-3xl font-bold p-3">
+                    StudyNook
+                </div></Link>
             {/* mid/navbar */}
             <div>
+                {
+                    (!user ? <div className="flex gap-3 ">
+                        <NavLink href={"/"}>Home</NavLink>
+                        <NavLink href={"/rooms"}>Rooms</NavLink>
 
+                    </div> :
+                        <div className="flex gap-3 ">
+                            <NavLink href={"/"}>Home</NavLink>
+                            <NavLink href={"/rooms"}>Rooms</NavLink>
+                            <NavLink href={"/add-rooms"}>Add Rooms</NavLink>
+                            <NavLink href={"/my-listings"}>My Listings</NavLink>
+                            <NavLink href={"/my-bookings"}>My Bookings</NavLink>
+
+                        </div>)
+                }
             </div>
-
-
-
-
-
 
             {/* auth */}
             <div>
@@ -49,17 +68,12 @@ const Navbar = () => {
                         <Link href={"/login"}>
                             <Button variant="outline" className={"rounded-none bg-green-100 text-green-500"}>Login</Button>
                         </Link>
-                        <Link  href={"/signup"}>
+                        <Link href={"/signup"}>
                             <Button variant="outline" className={"rounded-none bg-green-100 text-green-500"}>SignUp</Button>
                         </Link>
 
-                    </div> : 
-                    <div className="flex gap-4 items-center"> 
-                        <p>Welcome {user.name}</p>
-                       <Button variant="danger" onClick={() => {
-                        signOut()
-                       }}>SignOut</Button> 
-                    </div>
+                    </div> :
+                        <ProfileDropDown user={user}></ProfileDropDown>
                     )}
 
             </div>
@@ -68,6 +82,30 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
