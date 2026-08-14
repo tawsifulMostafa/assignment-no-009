@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Card, Button } from "@heroui/react";
 import { ArrowRight, Clock } from "lucide-react";
+import Link from "next/link";
 
 const AllRoomPage = async () => {
     const res = await fetch("http://localhost:8000/rooms");
@@ -17,7 +18,7 @@ const AllRoomPage = async () => {
                     {/* Image */}
                     <div className="relative h-52 sm:h-56 md:h-60 w-full">
                         <Image
-                            src={room.imageUrl}
+                            src={room.image}
                             alt={room.roomName}
                             fill
                             className="object-cover"
@@ -41,13 +42,14 @@ const AllRoomPage = async () => {
                             </span>
                         </div>
 
+                        <Link href={`rooms/${room._id}`}>
                         <Button  
                             color="primary"
                             className="mt-4 w-full"
                             endContent={<ArrowRight size={17} />}
                         >
                             View Details
-                        </Button>
+                        </Button></Link>
                     </div>
                 </Card>
             ))}
