@@ -6,7 +6,7 @@ import Link from "next/link";
 const AllRoomPage = async () => {
     const res = await fetch("http://localhost:8000/rooms");
     const allRooms = await res.json();
-
+    console.log(allRooms);
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4 sm:p-6 max-w-7xl mx-auto">
             {allRooms.map((room) => (
@@ -19,7 +19,7 @@ const AllRoomPage = async () => {
                     <div className="relative h-52 sm:h-56 md:h-60 w-full">
                         <Image
                             src={room.image}
-                            alt={room.roomName}
+                            alt={room.name}
                             fill
                             className="object-cover"
                         />
@@ -28,9 +28,8 @@ const AllRoomPage = async () => {
                     {/* Card Content */}
                     <div className="p-4 sm:p-5">
                         <h2 className="text-lg sm:text-xl font-bold">
-                            {room.roomName}
+                            {room.name}
                         </h2>
-
                         <p className="mt-2 text-sm text-default-500 line-clamp-2">
                             {room.description}
                         </p>
@@ -38,18 +37,19 @@ const AllRoomPage = async () => {
                         <div className="flex items-center gap-2 mt-4">
                             <Clock size={17} />
                             <span className="text-sm text-default-500">
-                                ${room.hourlyRate} / hour
+                                ${room.rate
+                                } / hour
                             </span>
                         </div>
 
                         <Link href={`rooms/${room._id}`}>
-                        <Button  
-                            color="primary"
-                            className="mt-4 w-full"
-                            endContent={<ArrowRight size={17} />}
-                        >
-                            View Details
-                        </Button></Link>
+                            <Button
+                                color="primary"
+                                className="mt-4 w-full"
+                                endContent={<ArrowRight size={17} />}
+                            >
+                                View Details
+                            </Button></Link>
                     </div>
                 </Card>
             ))}

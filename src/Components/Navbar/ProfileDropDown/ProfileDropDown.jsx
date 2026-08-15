@@ -1,12 +1,13 @@
 "use client"
 import { signOut } from "@/app/lib/auth-client";
-import { Avatar,  Dropdown, Label } from "@heroui/react";
+import { Avatar, Dropdown, Label } from "@heroui/react";
 import { ArrowUpRightFromSquare, GalleryHorizontal, PersonStanding } from "lucide-react";
+import Link from "next/link";
 import { toast } from "sonner";
 
 
 const ProfileDropDown = ({ user }) => {
-    
+
     const { name, image, email } = user
     return (
         <div>
@@ -39,14 +40,14 @@ const ProfileDropDown = ({ user }) => {
                     </div>
                     <Dropdown.Menu>
                         <Dropdown.Item id="dashboard" textValue="Dashboard">
-                            <Label>Rooms</Label>
-                        </Dropdown.Item>
-                        <Dropdown.Item id="profile" textValue="Profile">
-                            <Label>Profile</Label>
+                            <Link href={"/add-rooms"}>
+                                <Label>Add Rooms</Label>
+                            </Link>
                         </Dropdown.Item>
                         <Dropdown.Item id="settings" textValue="Settings">
                             <div className="flex w-full items-center justify-between gap-2">
-                                <Label>Settings</Label>
+                                <Link href={"/my-listings"}>
+                                    <Label>My Listings</Label></Link>
                                 <GalleryHorizontal className="size-3.5 text-muted" />
                             </div>
                         </Dropdown.Item>
@@ -62,7 +63,7 @@ const ProfileDropDown = ({ user }) => {
                             variant="danger"
                             onClick={async () => {
                                 await signOut();
-                                toast   
+                                toast
                                 window.location.reload();
                             }}
                         >

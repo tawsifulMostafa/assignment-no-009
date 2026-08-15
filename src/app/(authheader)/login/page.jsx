@@ -1,36 +1,44 @@
 "use client"
-import { authClient } from "@/app/lib/auth-client";
+import { authClient, signIn } from "@/app/lib/auth-client";
 import { Button, Description, FieldError, Form, Input, Label, TextField } from "@heroui/react";
+import { Icon } from "@iconify/react";
 import { Check } from "lucide-react";
 import { toast } from "sonner";
 
 
 
 const LoginPage = () => {
-    
-    const onSubmit = async(e) =>{
+
+    const handleGoogleLogin = async () => {
+        await signIn.social({
+            provider: "google",
+        });
+
+    }
+
+    const onSubmit = async (e) => {
         e.preventDefault()
         const formData = new FormData(e.currentTarget)
         const loginData = Object.fromEntries(formData.entries())
         console.log(loginData);
 
-        const { data  , error} = await authClient.signIn.email({
-            email : loginData.email ,
-            password : loginData.password, 
-            rememberMe: true , 
+        const { data, error } = await authClient.signIn.email({
+            email: loginData.email,
+            password: loginData.password,
+            rememberMe: true,
             callbackURL: "http://localhost:3000"
         })
-       if(error){
-            toast.error("Wrong credetential")
-        } else{
+        if (error) {
+            toast.error("Wrong credentials")
+        } else {
             toast.success("Login Successful")
-            
+
         }
 
     }
     return (
         <div>
-            <Form className="flex w-96 flex-col gap-4 justify-ceneter mx-auto" onSubmit={onSubmit}>
+            <Form className="flex w-96 flex-col gap-4 justify-center mx-auto border p-10 m-10 rounded-xl" onSubmit={onSubmit}>
 
                 <TextField
                     isRequired
@@ -71,12 +79,16 @@ const LoginPage = () => {
                     <Description>Must be at least 8 characters with 1 uppercase and 1 number</Description>
                     <FieldError />
                 </TextField>
-                <div className="flex gap-2">
-                    <Button type="submit">
+                <div className="grid gap-3">
+                    <Button className={"w-full"} type="submit">
                         <Check />  Submit
                     </Button>
-                    <Button type="reset" variant="secondary">
+                    <Button className={"w-full"} type="reset" variant="secondary">
                         Reset
+                    </Button>
+                    <Button onClick={handleGoogleLogin} className="w-full" variant="tertiary">
+                        <Icon icon="devicon:google" />
+                        Sign in with Google
                     </Button>
                 </div>
             </Form>

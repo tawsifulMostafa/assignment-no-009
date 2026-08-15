@@ -19,7 +19,7 @@ const RoomDetailsPage = async ({ params }) => {
         amenities,
         bookingCount,
     } = room;
-
+console.log(room);
     return (
         <div className="max-w-6xl mx-auto px-4 py-10">
             <Card className="overflow-hidden">

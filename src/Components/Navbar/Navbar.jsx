@@ -1,9 +1,9 @@
 
 
 
-import { useSession } from "@/app/lib/auth-client";
-import { Button, Skeleton } from "@heroui/react";
+// import { useSession } from "@/app/lib/auth-client";
 
+import { Button } from "@heroui/react";
 import Link from "next/link";
 import NavLink from "./NavLink";
 import ProfileDropDown from "./ProfileDropDown/ProfileDropDown";
@@ -30,6 +30,7 @@ const Navbar = async() => {
         headers : await headers()
     })
     const user = session?.user
+  
     
 
     return (
