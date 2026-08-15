@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Card, Chip } from "@heroui/react";
 import { Users, Clock, MapPin, Zap } from "lucide-react";
 import BookingCard from "@/Components/BookingCard/BookingCard";
+import RoomOwnerModal from "@/Components/RoomOwnerModal/RoomOwnerModal";
 
 const RoomDetailsPage = async ({ params }) => {
     const { roomId } = await params;
@@ -17,7 +18,6 @@ const RoomDetailsPage = async ({ params }) => {
         capacity,
         rate,
         amenities,
-        bookingCount,
     } = room;
 console.log(room);
     return (
@@ -94,19 +94,14 @@ console.log(room);
                                     </p>
                                 </div>
                             </div>
-
-                            <div className="flex items-center gap-3">
-                                <Zap className="text-primary" />
-                                <div>
-                                    <p className="text-sm text-gray-500">
-                                        Bookings
-                                    </p>
-                                    <p className="font-semibold">
-                                        {bookingCount}
-                                        {/* todo: bookings count function for counting booking times */}
-                                    </p>
-                                </div>
-                            </div>
+                      <div className="flex items-center gap-4 border p-4 rounded-2xl">
+                        <Image   alt="image"
+                        src={room.userImage}
+                        height={50}
+                        width={50}/>
+                        <p>{room.userName}</p>
+                      </div>
+                            
 
                         </div>
                     </div>
