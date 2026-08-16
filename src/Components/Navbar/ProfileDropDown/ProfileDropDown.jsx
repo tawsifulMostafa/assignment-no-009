@@ -7,7 +7,6 @@ import { toast } from "sonner";
 
 
 const ProfileDropDown = ({ user }) => {
-
     const { name, image, email } = user
     return (
         <div>
@@ -39,12 +38,12 @@ const ProfileDropDown = ({ user }) => {
                         </div>
                     </div>
                     <Dropdown.Menu>
-                        <Dropdown.Item id="dashboard" textValue="Dashboard">
+                        <Dropdown.Item>
                             <Link href={"/add-rooms"}>
                                 <Label>Add Rooms</Label>
                             </Link>
                         </Dropdown.Item>
-                        <Dropdown.Item id="settings" textValue="Settings">
+                        <Dropdown.Item>
                             <div className="flex w-full items-center justify-between gap-2">
                                 <Link href={"/my-listings"}>
                                     <Label>My Listings</Label></Link>
