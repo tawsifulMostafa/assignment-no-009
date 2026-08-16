@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Card, Chip } from "@heroui/react";
 import { Users, Clock, MapPin, Zap } from "lucide-react";
 import BookingCard from "@/Components/BookingCard/BookingCard";
-import RoomOwnerModal from "@/Components/RoomOwnerModal/RoomOwnerModal";
+ 
 
 const RoomDetailsPage = async ({ params }) => {
     const { roomId } = await params;
@@ -19,7 +19,6 @@ const RoomDetailsPage = async ({ params }) => {
         rate,
         amenities,
     } = room;
-console.log(room);
     return (
         <div className="max-w-6xl mx-auto px-4 py-10">
             <Card className="overflow-hidden">
