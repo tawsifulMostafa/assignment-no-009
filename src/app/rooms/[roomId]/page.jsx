@@ -4,6 +4,7 @@ import { Users, Clock, MapPin, Zap } from "lucide-react";
 import BookingCard from "@/Components/BookingCard/BookingCard";
 import { sessionCheck } from "@/app/lib/session";
 import EditRoom from "@/Components/EditRoom/EditRoom";
+import DeleteRoom from "@/Components/DeleteRoom/DeleteRoom";
  
 
 const RoomDetailsPage = async ({ params }) => {
@@ -138,9 +139,11 @@ const RoomDetailsPage = async ({ params }) => {
                         {
                             (user.id === userId && <EditRoom room={room}></EditRoom>)
                         }
+                        {
+                            (user.id === userId && <DeleteRoom room = {room}></DeleteRoom>)
+                        }
 
                     </div>
-
                 </div>
             </Card>
         </div>

@@ -59,7 +59,7 @@ const AddRoomsPage = () => {
                 color: "green",
             },
         });
-
+    
         router.push("/my-listings");
     };
 
