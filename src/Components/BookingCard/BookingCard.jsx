@@ -81,7 +81,7 @@ const router = useRouter()
         amenities,
     };
 
-    console.log("Booking Data:", allBookingData);
+    
 
     toast.promise(
         fetch("http://localhost:8000/bookings", {

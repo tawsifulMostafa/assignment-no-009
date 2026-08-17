@@ -1,16 +1,22 @@
 import Image from "next/image";
-import { Card, Chip } from "@heroui/react";
+import { Button, Card, Chip } from "@heroui/react";
 import { Users, Clock, MapPin, Zap } from "lucide-react";
 import BookingCard from "@/Components/BookingCard/BookingCard";
+import { sessionCheck } from "@/app/lib/session";
+import EditRoom from "@/Components/EditRoom/EditRoom";
  
 
 const RoomDetailsPage = async ({ params }) => {
     const { roomId } = await params;
+    const {user} =await sessionCheck()
+    
 
     const res = await fetch(`http://localhost:8000/rooms/${roomId}`);
     const room = await res.json();
+ 
 
     const {
+        userId ,
         roomName,
         description,
         image,
@@ -18,13 +24,13 @@ const RoomDetailsPage = async ({ params }) => {
         capacity,
         rate,
         amenities,
-    } = room;
+    } = room;   
     return (
         <div className="max-w-6xl mx-auto px-4 py-10">
             <Card className="overflow-hidden">
 
                 {/* Image */}
-                <div className="relative h-100 w-full">
+                <div className="relative h-150 w-full">
                     <Image
                         src={image}
                         alt={room}
@@ -94,6 +100,7 @@ const RoomDetailsPage = async ({ params }) => {
                                 </div>
                             </div>
                       <div className="flex items-center gap-4 border p-4 rounded-2xl">
+                        By
                         <Image   alt="image"
                         src={room.userImage}
                         height={50}
@@ -128,6 +135,10 @@ const RoomDetailsPage = async ({ params }) => {
 
                     <div className="flex justify-center p-3">
                         <BookingCard room={room} />
+                        {
+                            (user.id === userId && <EditRoom room={room}></EditRoom>)
+                        }
+
                     </div>
 
                 </div>

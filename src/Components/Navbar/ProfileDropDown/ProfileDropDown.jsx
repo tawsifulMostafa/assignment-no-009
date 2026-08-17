@@ -2,22 +2,23 @@
 import { signOut } from "@/app/lib/auth-client";
 import { Avatar, Dropdown, Label } from "@heroui/react";
 import { ArrowUpRightFromSquare, GalleryHorizontal, PersonStanding } from "lucide-react";
-import Link from "next/link";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 
 const ProfileDropDown = ({ user }) => {
     const { name, image, email } = user
+    const router = useRouter()
     return (
         <div>
             <Dropdown>
                 <Dropdown.Trigger className="rounded-full">
                     <Avatar>
-                        <Avatar.Image
-                            alt={name}
-                            src={image}
-                        />
-                        <Avatar.Fallback delayMs={600}>JD</Avatar.Fallback>
+                         <Image alt="user image"
+                         src={image} height={50}  width={50}/>
+
+
                     </Avatar>
                 </Dropdown.Trigger>
                 <Dropdown.Popover>
@@ -29,7 +30,7 @@ const ProfileDropDown = ({ user }) => {
                                     src={image}
 
                                 />
-                                <Avatar.Fallback delayMs={600}>JD</Avatar.Fallback>
+
                             </Avatar>
                             <div className="flex flex-col gap-0">
                                 <p className="text-sm leading-5 font-medium">{name}</p>
@@ -38,15 +39,12 @@ const ProfileDropDown = ({ user }) => {
                         </div>
                     </div>
                     <Dropdown.Menu>
-                        <Dropdown.Item>
-                            <Link href={"/add-rooms"}>
-                                <Label>Add Rooms</Label>
-                            </Link>
+                        <Dropdown.Item onClick={() => router.push("/add-rooms")}>
+                            <Label>Add Rooms</Label>
                         </Dropdown.Item>
-                        <Dropdown.Item>
+                        <Dropdown.Item onClick={() => router.push("/my-listings")}>
                             <div className="flex w-full items-center justify-between gap-2">
-                                <Link href={"/my-listings"}>
-                                    <Label>My Listings</Label></Link>
+                                <Label>My Listings</Label>
                                 <GalleryHorizontal className="size-3.5 text-muted" />
                             </div>
                         </Dropdown.Item>

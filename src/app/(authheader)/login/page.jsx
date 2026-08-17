@@ -3,6 +3,7 @@ import { authClient, signIn } from "@/app/lib/auth-client";
 import { Button, Description, FieldError, Form, Input, Label, TextField } from "@heroui/react";
 import { Icon } from "@iconify/react";
 import { Check } from "lucide-react";
+import Link from "next/link";
 import { toast } from "sonner";
 
 
@@ -20,7 +21,7 @@ const LoginPage = () => {
         e.preventDefault()
         const formData = new FormData(e.currentTarget)
         const loginData = Object.fromEntries(formData.entries())
-        console.log(loginData);
+        
 
         const { data, error } = await authClient.signIn.email({
             email: loginData.email,
@@ -83,9 +84,8 @@ const LoginPage = () => {
                     <Button className={"w-full"} type="submit">
                         <Check />  Submit
                     </Button>
-                    <Button className={"w-full"} type="reset" variant="secondary">
-                        Reset
-                    </Button>
+                     <Link href={"/signup"}>
+                     <Button className={"w-full"}>SignUp?</Button></Link>
                     <Button onClick={handleGoogleLogin} className="w-full" variant="tertiary">
                         <Icon icon="devicon:google" />
                         Sign in with Google
