@@ -119,7 +119,7 @@ const router = useRouter()
             <AlertDialog>
                 <Button
                     variant="danger"
-                    className="rounded-none bg-white text-blue-400"
+                    className="rounded-none border-blue-300 border bg-white text-blue-400"
                 >
                     Book Room
                 </Button>

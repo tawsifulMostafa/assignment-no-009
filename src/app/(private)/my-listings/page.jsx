@@ -1,8 +1,10 @@
 import { sessionCheck } from "@/app/lib/session";
 import { Button, Card } from "@heroui/react";
-import { Clock, Eye, Pencil } from "lucide-react";
+import { Clock, Eye } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { toast } from "sonner";
 
 const MyListingsPage = async () => {
     const session = await sessionCheck();
@@ -14,8 +16,10 @@ const MyListingsPage = async () => {
             cache: "no-store",
         }
     );
+    
 
     const rooms = await res.json();
+    
 
     if (rooms.length === 0) {
         return (
@@ -28,6 +32,14 @@ const MyListingsPage = async () => {
                     <p className="mt-2 text-default-500">
                         You haven&apos;t added any rooms yet.
                     </p>
+                   <div className="p-3 m-4 grid gap-3">
+
+                     <p>
+                        If you want to add room...?
+                    </p>
+              <Link  href={"/add-room"}>
+                <Button>Add-Room</Button></Link>
+                   </div>
                 </div>
             </div>
         );
@@ -95,7 +107,7 @@ const MyListingsPage = async () => {
                                 >
                                     <Button
                                         variant="flat"
-                                        className="w-full"
+                                        className="w-full bg-green-200"
                                     >
                                         <Eye size={17} />
                                         View

@@ -1,23 +1,32 @@
 import Image from "next/image";
-import { Button, Card, Chip } from "@heroui/react";
+import { Card, Chip } from "@heroui/react";
 import { Users, Clock, MapPin, Zap } from "lucide-react";
 import BookingCard from "@/Components/BookingCard/BookingCard";
 import { sessionCheck } from "@/app/lib/session";
 import EditRoom from "@/Components/EditRoom/EditRoom";
 import DeleteRoom from "@/Components/DeleteRoom/DeleteRoom";
- 
+
 
 const RoomDetailsPage = async ({ params }) => {
     const { roomId } = await params;
-    const {user} =await sessionCheck()
-    
+    const { user } = await sessionCheck()
+
 
     const res = await fetch(`http://localhost:8000/rooms/${roomId}`);
     const room = await res.json();
- 
+
+
+    if (!res.ok) {
+        return <div className="flex justify-center py-20">
+            <h1 className="text-2xl font-bold">
+                Room not found
+            </h1>
+        </div>
+    }
+
 
     const {
-        userId ,
+        userId,
         roomName,
         description,
         image,
@@ -25,7 +34,7 @@ const RoomDetailsPage = async ({ params }) => {
         capacity,
         rate,
         amenities,
-    } = room;   
+    } = room;
     return (
         <div className="max-w-6xl mx-auto px-4 py-10">
             <Card className="overflow-hidden">
@@ -100,15 +109,15 @@ const RoomDetailsPage = async ({ params }) => {
                                     </p>
                                 </div>
                             </div>
-                      <div className="flex items-center gap-4 border p-4 rounded-2xl">
-                        By
-                        <Image   alt="image"
-                        src={room.userImage}
-                        height={50}
-                        width={50}/>
-                        <p>{room.userName}</p>
-                      </div>
-                            
+                            <div className="flex items-center gap-4 border p-4 rounded-2xl">
+                                By
+                                <Image alt="image"
+                                    src={room.userImage}
+                                    height={50}
+                                    width={50} />
+                                <p>{room.userName}</p>
+                            </div>
+
 
                         </div>
                     </div>
@@ -134,13 +143,13 @@ const RoomDetailsPage = async ({ params }) => {
                         </div>
                     </div>
 
-                    <div className="flex justify-center p-3">
+                    <div className="flex justify-center p-3 items-center gap-3 rounded-none">
                         <BookingCard room={room} />
                         {
                             (user.id === userId && <EditRoom room={room}></EditRoom>)
                         }
                         {
-                            (user.id === userId && <DeleteRoom room = {room}></DeleteRoom>)
+                            (user.id === userId && <DeleteRoom room={room}></DeleteRoom>)
                         }
 
                     </div>
@@ -150,4 +159,4 @@ const RoomDetailsPage = async ({ params }) => {
     );
 };
 
-export default RoomDetailsPage;
+export default RoomDetailsPage; 

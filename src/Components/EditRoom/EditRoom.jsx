@@ -9,10 +9,13 @@ import {
     TextField,
     TextArea,
 } from "@heroui/react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { toast } from "sonner";
 
 const EditRoom = ({ room }) => {
-
+    const [isOpen, setIsOpen] = useState(false)
+    const router = useRouter()
     const onSubmit = async (e) => {
         e.preventDefault();
 
@@ -43,25 +46,34 @@ const EditRoom = ({ room }) => {
                 body: JSON.stringify(updatedData),
             }
         );
-
-        {
-            toast.success("Room Details Updated Successfully" ,{
-                style : {
+        if (!res.ok) {
+            toast.error("Room Update Unsuccessful" , {
+                style: {
+                    color: "red"
+                }
+            })
+            return 
+        } else {
+            toast.success("Room Details Updated Successfully", {
+                style: {
                     color: "green"
                 }
             } )
         }
         
+        setIsOpen(false) 
+        router.refresh()
+
     };
 
     return (
-        <Modal>
+        <Modal isOpen={isOpen} onOpenChange={setIsOpen}>
 
             {/* Open Modal Button */}
             <div>
                 <Button
                     variant="secondary"
-                    className="btn"
+                    className="rounded-none bg-white border border-blue-300"
                 >
                     Edit Room
                 </Button>
@@ -84,9 +96,9 @@ const EditRoom = ({ room }) => {
 
                                 <div className="mx-auto">
 
-                                    <h3 className="font-bold text-3xl pb-6">
+                                    <h2 className="font-bold mx-auto flex justify-center  text-3xl pb-6">
                                         Edit Room
-                                    </h3>
+                                    </h2>
 
                                     <form onSubmit={onSubmit}>
 
@@ -240,6 +252,9 @@ const EditRoom = ({ room }) => {
 
                                             <Button
                                                 type="submit"
+                                                onPress={() =>{
+                                                    setIsOpen(true)
+                                                }}
                                             >
                                                 Update Room
                                             </Button>
