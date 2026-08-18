@@ -37,7 +37,7 @@ const MyListingsPage = async () => {
                      <p>
                         If you want to add room...?
                     </p>
-              <Link  href={"/add-room"}>
+              <Link  href={"/add-rooms"}>
                 <Button>Add-Room</Button></Link>
                    </div>
                 </div>

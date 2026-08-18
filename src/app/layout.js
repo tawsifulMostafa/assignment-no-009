@@ -1,6 +1,7 @@
 import Navbar from "@/Components/Navbar/Navbar";
 import "./globals.css";
 import { Toaster } from "sonner";
+import HomeBanner from "@/Components/HomeBanner/HomeBanner";
 
 
 export default function RootLayout({ children }) {
@@ -11,6 +12,7 @@ export default function RootLayout({ children }) {
       <body className="min-h-full flex flex-col">
         
         <Navbar></Navbar>
+   
         <main>
           {children}
         </main>
