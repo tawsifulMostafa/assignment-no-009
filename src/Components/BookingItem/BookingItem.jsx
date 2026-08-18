@@ -114,7 +114,7 @@ const BookingItem = ({ booking }) => {
             {status === "confirmed" && (
                 <div className="flex justify-end mt-5">
                     <Button
-                        color="danger"
+                        className={"text-red-600 border border-red-200 bg-white rounded-none"}
                         variant="flat"
                         onPress={handleCancel}
                     >
