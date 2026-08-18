@@ -34,6 +34,7 @@ const RoomDetailsPage = async ({ params }) => {
         capacity,
         rate,
         amenities,
+        userImage
     } = room;
     return (
         <div className="max-w-6xl mx-auto px-4 py-10">
@@ -112,7 +113,7 @@ const RoomDetailsPage = async ({ params }) => {
                             <div className="flex items-center gap-4 border p-4 rounded-2xl">
                                 By
                                 <Image alt="image"
-                                    src={room.userImage}
+                                    src={userImage}
                                     height={50}
                                     width={50} />
                                 <p>{room.userName}</p>

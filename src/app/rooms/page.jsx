@@ -6,7 +6,7 @@ import Link from "next/link";
 const AllRoomPage = async () => {
     const res = await fetch("http://localhost:8000/rooms");
     const allRooms = await res.json();
-
+     console.log(allRooms);
     if(allRooms.length === 0){
         return <div className="flex items-center justify-center text-2xl">
             No Room Found

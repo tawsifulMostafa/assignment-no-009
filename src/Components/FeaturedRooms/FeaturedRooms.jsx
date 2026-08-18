@@ -14,9 +14,11 @@ const FeaturedRooms = async () => {
             <div className="flex justify-between pt-20  p-5 ">
                 <p className="text-3xl font-bold">  Featured Rooms
                 </p>
+                <Link href={"/rooms"}>
                 <Button className={"bg-green-200 text-black"}  >
                     Explore More Room  <ArrowChevronRight></ArrowChevronRight>
                 </Button>
+                </Link>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4 sm:p-6 max-w-7xl mx-auto">
                 {rooms.map((room) => (

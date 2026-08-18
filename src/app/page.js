@@ -1,5 +1,6 @@
 import FeaturedRooms from "@/Components/FeaturedRooms/FeaturedRooms";
 import HomeBanner from "@/Components/HomeBanner/HomeBanner";
+import WhyChooseUs from "@/Components/WhyChooseUs/WhyChooseUs";
  
 
  
@@ -9,6 +10,7 @@ export default function Home() {
     <div>
       <HomeBanner/>
        <FeaturedRooms/>
+       <WhyChooseUs/>
     </div>
   )
 }
