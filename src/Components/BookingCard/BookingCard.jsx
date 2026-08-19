@@ -81,13 +81,15 @@ const router = useRouter()
         amenities,
     };
 
-    
+    const { data: tokenData } = await authClient.token();
+    const { token } = tokenData;
 
     toast.promise(
         fetch(`${process.env.NEXT_PUBLIC_SERVER_SIDE_URL}/bookings`, {
             method: "POST",
             headers: {
                 "content-type": "application/json",
+                Authorization: token
             },
             body: JSON.stringify(allBookingData),
         }).then(async (res) => {

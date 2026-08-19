@@ -34,7 +34,9 @@ const EditRoom = ({ room }) => {
             description: formData.get("description"),
         };
 
-        console.log(updatedData);
+        
+        const { data: tokenData } = await authClient.token();
+        const { token } = tokenData;
 
         const res = await fetch(
             `${process.env.NEXT_PUBLIC_SERVER_SIDE_URL}/rooms/${room._id}`,
@@ -42,6 +44,7 @@ const EditRoom = ({ room }) => {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
+                    Authorization: token
                 },
                 body: JSON.stringify(updatedData),
             }

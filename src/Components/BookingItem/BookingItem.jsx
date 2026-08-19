@@ -8,10 +8,16 @@ const BookingItem = ({ booking }) => {
     const [status, setStatus] = useState(booking.status);
 
     const handleCancel = async () => {
+        const {data:tokenData} = await authClient.token()
+        const {token} = tokenData;
         const res = await fetch(
             `${process.env.NEXT_PUBLIC_SERVER_SIDE_URL}/bookings/${booking._id}`,
             {
                 method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: token
+                }
             }
         );
 

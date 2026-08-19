@@ -37,6 +37,7 @@ const DeleteModal = ({ room }) => {
         }
 
         router.refresh()
+        router.push("/my-listings")
         setIsOpen(false)
     }
     return (

@@ -1,23 +1,32 @@
-
+import { auth } from "@/app/lib/auth";
 import { ArrowChevronRight } from "@gravity-ui/icons";
 import { Button, Card } from "@heroui/react";
 import { ArrowRight, Clock } from "lucide-react";
+import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 
 const FeaturedRooms = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_SIDE_URL}/rooms/featured`)
-    const rooms = await res.json()
- 
+    const { token } = await auth.api.getToken({
+        headers: await headers()
+    });
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_SIDE_URL}/rooms/featured`, {
+        headers: {
+            Authorization: token
+        }
+    });
+    const rooms = await res.json();
+
     return (
         <div>
             <div className="flex justify-between pt-20  p-5 ">
                 <p className="text-3xl font-bold">  Featured Rooms
                 </p>
                 <Link href={"/rooms"}>
-                <Button className={"bg-green-200 text-black"}  >
-                    Explore More Room  <ArrowChevronRight></ArrowChevronRight>
-                </Button>
+                    <Button className={"bg-green-200 text-black"}  >
+                        Explore More Room  <ArrowChevronRight></ArrowChevronRight>
+                    </Button>
                 </Link>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4 sm:p-6 max-w-7xl mx-auto">
