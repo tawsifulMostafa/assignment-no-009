@@ -15,7 +15,7 @@ const MyListingsPage = async () => {
     })
 
     const res = await fetch(
-        `${process.env.SERVER_SIDE_URL}/rooms/user/${userId}`,
+        `${process.env.NEXT_PUBLIC_SERVER_SIDE_URL}/rooms/user/${userId}`,
          {
             cache: "no-store",
             headers:{

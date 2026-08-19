@@ -37,7 +37,7 @@ const EditRoom = ({ room }) => {
         console.log(updatedData);
 
         const res = await fetch(
-            `${process.env.SERVER_SIDE_URL}/rooms/${room._id}`,
+            `${process.env.NEXT_PUBLIC_SERVER_SIDE_URL}/rooms/${room._id}`,
             {
                 method: "PATCH",
                 headers: {

@@ -46,11 +46,9 @@ const AddRoomsPage = () => {
         const {data} = await authClient.token()
      
         const {token} = data 
-        console.log(token);
-
         
 
-        const res = await fetch(`${process.env.SERVER_SIDE_URL}/add-room`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_SIDE_URL}/add-room`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

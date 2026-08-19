@@ -16,7 +16,7 @@ const DeleteModal = ({ room }) => {
         const {data:tokenData} = await authClient.token()
         const {token} = tokenData;
 
-        const delRes = await fetch(`${process.env.SERVER_SIDE_URL}/rooms/${room._id}`, {
+        const delRes = await fetch(`${process.env.NEXT_PUBLIC_SERVER_SIDE_URL}/rooms/${room._id}`, {
             method: 'DELETE',
             headers : {
                 Authorization : token

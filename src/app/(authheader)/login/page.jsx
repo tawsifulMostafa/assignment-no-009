@@ -26,7 +26,7 @@ const LoginPage = () => {
             email: loginData.email,
             password: loginData.password,
             rememberMe: true,
-            callbackURL:  process.env.SERVER_SIDE_URL
+            callbackURL:  process.env.NEXT_PUBLIC_SERVER_SIDE_URL
         })
         if (error) {
             toast.error("Wrong credentials")

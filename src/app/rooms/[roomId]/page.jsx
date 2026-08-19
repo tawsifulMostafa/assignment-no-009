@@ -12,7 +12,7 @@ const RoomDetailsPage = async ({ params }) => {
     const { user } = await sessionCheck()
 
 
-    const res = await fetch(`${process.env.SERVER_SIDE_URL}/rooms/${roomId}`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_SIDE_URL}/rooms/${roomId}`);
     const room = await res.json();
 
 
