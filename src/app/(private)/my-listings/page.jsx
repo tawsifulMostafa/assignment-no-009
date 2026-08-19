@@ -1,25 +1,32 @@
+import { auth } from "@/app/lib/auth";
 import { sessionCheck } from "@/app/lib/session";
 import { Button, Card } from "@heroui/react";
 import { Clock, Eye } from "lucide-react";
+import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
-import { redirect } from "next/navigation";
-import { toast } from "sonner";
 
 const MyListingsPage = async () => {
     const session = await sessionCheck();
     const userId = session?.user?.id;
 
+    const { token } = await auth.api.getToken({
+        headers: await headers()
+    })
+
     const res = await fetch(
         `http://localhost:8000/rooms/user/${userId}`,
-        {
+         {
             cache: "no-store",
-        }
+            headers:{
+                authorization : token
+            }
+         }
     );
-    
+
 
     const rooms = await res.json();
-    
+
 
     if (rooms.length === 0) {
         return (
@@ -32,14 +39,14 @@ const MyListingsPage = async () => {
                     <p className="mt-2 text-default-500">
                         You haven&apos;t added any rooms yet.
                     </p>
-                   <div className="p-3 m-4 grid gap-3">
+                    <div className="p-3 m-4 grid gap-3">
 
-                     <p>
-                        If you want to add room...?
-                    </p>
-              <Link  href={"/add-rooms"}>
-                <Button>Add-Room</Button></Link>
-                   </div>
+                        <p>
+                            If you want to add room...?
+                        </p>
+                        <Link href={"/add-rooms"}>
+                            <Button>Add-Room</Button></Link>
+                    </div>
                 </div>
             </div>
         );
@@ -114,7 +121,7 @@ const MyListingsPage = async () => {
                                     </Button>
                                 </Link>
                             </div>
-                            
+
                         </div>
                     </Card>
                 ))}

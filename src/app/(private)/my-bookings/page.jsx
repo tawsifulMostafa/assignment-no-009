@@ -1,18 +1,32 @@
+import { auth } from "@/app/lib/auth";
 import { sessionCheck } from "@/app/lib/session";
 import BookingItem from "@/Components/BookingItem/BookingItem";
 import { Button } from "@heroui/react";
+import { headers } from "next/headers";
 import Link from "next/link";
 
 
 const MyBookingsPage = async () => {
     const session = await sessionCheck();
     const userId = session?.user?.id;
+    const {token} =await auth.api.getToken({
+        headers: await headers()
+    })
+
+    console.log(token);
+
+ 
+
 
     const res = await fetch(`http://localhost:8000/booking/${userId}`, {
         cache: "no-store",
+         headers: {
+            authorization: `${token}`
+        }
     });
 
     const bookings = await res.json();
+    console.log(bookings);
 
     if (bookings.length === 0) {
         return (

@@ -16,7 +16,7 @@ import {
     TextArea,
     TextField,
 } from "@heroui/react";
-import { useSession } from "@/app/lib/auth-client";
+import {  authClient, useSession } from "@/app/lib/auth-client";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
@@ -26,7 +26,9 @@ const AddRoomsPage = () => {
 
     const { data } = useSession();
     const user = data?.user;
-
+    
+  
+ 
     const onSubmit = async (e) => {
         e.preventDefault();
 
@@ -41,10 +43,18 @@ const AddRoomsPage = () => {
         addData.userId = user.id;
         addData.userImage = user.image;
 
+        const {data} = await authClient.token()
+     
+        const {token} = data 
+        console.log(token);
+
+        
+
         const res = await fetch("http://localhost:8000/add-room", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                Authorization: token , 
             },
             body: JSON.stringify(addData),
         });
@@ -59,7 +69,7 @@ const AddRoomsPage = () => {
                 color: "green",
             },
         });
-    
+
         router.push("/my-listings");
     };
 
