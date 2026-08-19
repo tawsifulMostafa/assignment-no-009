@@ -84,7 +84,7 @@ const router = useRouter()
     
 
     toast.promise(
-        fetch("http://localhost:8000/bookings", {
+        fetch(`${process.env.SERVER_SIDE_URL}/bookings`, {
             method: "POST",
             headers: {
                 "content-type": "application/json",

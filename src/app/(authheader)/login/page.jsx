@@ -9,7 +9,6 @@ import { toast } from "sonner";
 
 
 const LoginPage = () => {
-
     const handleGoogleLogin = async () => {
         await signIn.social({
             provider: "google",
@@ -27,7 +26,7 @@ const LoginPage = () => {
             email: loginData.email,
             password: loginData.password,
             rememberMe: true,
-            callbackURL: "http://localhost:3000"
+            callbackURL:  process.env.SERVER_SIDE_URL
         })
         if (error) {
             toast.error("Wrong credentials")

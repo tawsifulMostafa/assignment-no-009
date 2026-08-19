@@ -15,7 +15,7 @@ const MyListingsPage = async () => {
     })
 
     const res = await fetch(
-        `http://localhost:8000/rooms/user/${userId}`,
+        `${process.env.SERVER_SIDE_URL}/rooms/user/${userId}`,
          {
             cache: "no-store",
             headers:{

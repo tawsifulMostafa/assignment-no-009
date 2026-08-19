@@ -18,7 +18,7 @@ const MyBookingsPage = async () => {
  
 
 
-    const res = await fetch(`http://localhost:8000/booking/${userId}`, {
+    const res = await fetch(`${process.env.SERVER_SIDE_URL}/booking/${userId}`, {
         cache: "no-store",
          headers: {
             authorization: `${token}`

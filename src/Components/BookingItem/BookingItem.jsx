@@ -9,7 +9,7 @@ const BookingItem = ({ booking }) => {
 
     const handleCancel = async () => {
         const res = await fetch(
-            `http://localhost:8000/bookings/${booking._id}`,
+            `${process.env.SERVER_SIDE_URL}/bookings/${booking._id}`,
             {
                 method: "PATCH",
             }

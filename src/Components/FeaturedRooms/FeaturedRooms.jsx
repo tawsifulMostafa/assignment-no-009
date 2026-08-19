@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const FeaturedRooms = async () => {
-    const res = await fetch("http://localhost:8000/rooms/featured")
+    const res = await fetch(`${process.env.SERVER_SIDE_URL}/rooms/featured`)
     const rooms = await res.json()
  
     return (

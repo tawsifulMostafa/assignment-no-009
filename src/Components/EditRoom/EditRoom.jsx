@@ -37,7 +37,7 @@ const EditRoom = ({ room }) => {
         console.log(updatedData);
 
         const res = await fetch(
-            `http://localhost:8000/rooms/${room._id}`,
+            `${process.env.SERVER_SIDE_URL}/rooms/${room._id}`,
             {
                 method: "PATCH",
                 headers: {
@@ -47,21 +47,21 @@ const EditRoom = ({ room }) => {
             }
         );
         if (!res.ok) {
-            toast.error("Room Update Unsuccessful" , {
+            toast.error("Room Update Unsuccessful", {
                 style: {
                     color: "red"
                 }
             })
-            return 
+            return
         } else {
             toast.success("Room Details Updated Successfully", {
                 style: {
                     color: "green"
                 }
-            } )
+            })
         }
-        
-        setIsOpen(false) 
+
+        setIsOpen(false)
         router.refresh()
 
     };
@@ -252,7 +252,7 @@ const EditRoom = ({ room }) => {
 
                                             <Button
                                                 type="submit"
-                                                onPress={() =>{
+                                                onPress={() => {
                                                     setIsOpen(true)
                                                 }}
                                             >

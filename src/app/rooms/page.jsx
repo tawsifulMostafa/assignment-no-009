@@ -4,7 +4,7 @@ import { ArrowRight, Clock } from "lucide-react";
 import Link from "next/link";
 
 const AllRoomPage = async () => {
-    const res = await fetch("http://localhost:8000/rooms");
+    const res = await fetch(`${process.env.SERVER_SIDE_URL}/rooms`);
     const allRooms = await res.json();
     console.log(allRooms);
     if (allRooms.length === 0) {

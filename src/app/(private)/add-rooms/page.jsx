@@ -50,7 +50,7 @@ const AddRoomsPage = () => {
 
         
 
-        const res = await fetch("http://localhost:8000/add-room", {
+        const res = await fetch(`${process.env.SERVER_SIDE_URL}/add-room`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
