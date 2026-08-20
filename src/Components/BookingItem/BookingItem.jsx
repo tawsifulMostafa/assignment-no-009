@@ -3,6 +3,7 @@ import Image from "next/image";
 import { CalendarDays, Clock3 } from "lucide-react";
 import { Button, Chip } from "@heroui/react";
 import { useState } from "react";
+import { authClient } from "@/app/lib/auth-client";
 
 const BookingItem = ({ booking }) => {
     const [status, setStatus] = useState(booking.status);
