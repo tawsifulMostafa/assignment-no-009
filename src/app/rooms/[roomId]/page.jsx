@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Card, Chip } from "@heroui/react";
-import { Users, Clock, MapPin, Zap } from "lucide-react";
+import { Users, Clock, MapPin} from "lucide-react";
 import BookingCard from "@/Components/BookingCard/BookingCard";
 import { sessionCheck } from "@/app/lib/session";
 import EditRoom from "@/Components/EditRoom/EditRoom";
@@ -9,9 +9,8 @@ import DeleteRoom from "@/Components/DeleteRoom/DeleteRoom";
 
 const RoomDetailsPage = async ({ params }) => {
     const { roomId } = await params;
-    const { user } = await sessionCheck()
-
-
+    const userData   = await sessionCheck()
+    const user = userData?.user || null;
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_SIDE_URL}/rooms/${roomId}`);
     const room = await res.json();
 
@@ -147,10 +146,10 @@ const RoomDetailsPage = async ({ params }) => {
                     <div className="flex justify-center p-3 items-center gap-3 rounded-none">
                         <BookingCard room={room} />
                         {
-                            (user.id === userId && <EditRoom room={room}></EditRoom>)
+                            (user?.id === userId && <EditRoom room={room}></EditRoom>)
                         }
                         {
-                            (user.id === userId && <DeleteRoom room={room}></DeleteRoom>)
+                            (user?.id === userId && <DeleteRoom room={room}></DeleteRoom>)
                         }
 
                     </div>

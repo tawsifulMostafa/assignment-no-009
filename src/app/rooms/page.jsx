@@ -3,10 +3,10 @@ import { Card, Button } from "@heroui/react";
 import { ArrowRight, Clock } from "lucide-react";
 import Link from "next/link";
 
+
 const AllRoomPage = async () => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_SIDE_URL}/rooms`);
     const allRooms = await res.json();
-    console.log(allRooms);
     if (allRooms.length === 0) {
         return <div className="flex flex-col items-center justify-center py-16 text-center">
             <h3 className="text-xl font-semibold text-gray-700">

@@ -7,15 +7,9 @@ import Image from "next/image";
 import Link from "next/link";
 
 const FeaturedRooms = async () => {
-    const { token } = await auth.api.getToken({
-        headers: await headers()
-    });
+    
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_SIDE_URL}/rooms/featured`, {
-        headers: {
-            Authorization: token
-        }
-    });
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_SIDE_URL}/rooms/featured`);
     const rooms = await res.json();
 
     return (

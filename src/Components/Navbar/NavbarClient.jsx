@@ -8,6 +8,7 @@ import ProfileDropDown from "./ProfileDropDown/ProfileDropDown";
 
 const NavbarClient = ({ user }) => {
   const [isOpen, setIsOpen] = useState(false);
+  console.log(user);
 
   return (
     <div className="bg-gray-200">

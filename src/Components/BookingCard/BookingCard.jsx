@@ -1,18 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { useSession } from "@/app/lib/auth-client";
+import { authClient, useSession } from "@/app/lib/auth-client";
 import { AlertDialog, Button } from "@heroui/react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
+
 const BookingCard = ({ room }) => {
     const { data, isPending } = useSession();
     const user = data?.user;
-const router = useRouter()
+    const router = useRouter()
     const [bookingDate, setBookingDate] = useState("");
     const [startTime, setStartTime] = useState("");
     const [endTime, setEndTime] = useState("");
+    console.log(room);
+    console.log("session", data);
 
     if (!room) return null;
 
@@ -27,94 +30,94 @@ const router = useRouter()
         amenities,
     } = room;
 
-   const handleBooking = async () => {
-    if (isPending) {
-        toast.warning("Session loading...");
-        return;
-    }
-
-    if (!user?.id) {
-        toast.error("Please login first!");
-        return;
-    }
-
-    if (!bookingDate || !startTime || !endTime) {
-        toast.error("Please select date, start time and end time!");
-        return;
-    }
-
-    const start = new Date(`${bookingDate}T${startTime}`);
-    const end = new Date(`${bookingDate}T${endTime}`);
-
-   
-    if (end <= start) {
-        toast.error("End time must be after start time!");
-        return;
-    }
-
-    
-    const durationInHours =
-        (end - start) / (1000 * 60 * 60);
-
-  
-    const totalPrice = durationInHours * rate;
-
-    const allBookingData = {
-        userId: user.id,
-        userName: user.name,
-
-        roomId: _id,
-        name,
-
-        bookingDate,
-        startTime,
-        endTime,
-
-        duration: durationInHours,
-        hourlyRate: rate,
-        totalPrice,
-
-        description,
-        image,
-        floor,
-        capacity,
-        amenities,
-    };
-
-    const { data: tokenData } = await authClient.token();
-    const { token } = tokenData;
-
-    toast.promise(
-        fetch(`${process.env.NEXT_PUBLIC_SERVER_SIDE_URL}/bookings`, {
-            method: "POST",
-            headers: {
-                "content-type": "application/json",
-                Authorization: token
-            },
-            body: JSON.stringify(allBookingData),
-        }).then(async (res) => {
-
-            const data = await res.json();
-
-            if (!res.ok) {
-                throw new Error(
-                    data.message || "Booking failed!"
-                );
-            }
-
-            return data;
-        }),
-        {
-            loading: "Booking in progress...",
-            success: `${name} booked successfully!`  ,
-            error: (error) => error.message,
+    const handleBooking = async () => {
+        if (isPending) {
+            toast.warning("Session loading...");
+            return;
         }
-    );
-    
-    router.push("/my-bookings")
-    
-    
-};
+
+        if (!user?.id) {
+            toast.error("Please login first!");
+            return;
+        }
+
+        if (!bookingDate || !startTime || !endTime) {
+            toast.error("Please select date, start time and end time!");
+            return;
+        }
+
+        const start = new Date(`${bookingDate}T${startTime}`);
+        const end = new Date(`${bookingDate}T${endTime}`);
+
+
+        if (end <= start) {
+            toast.error("End time must be after start time!");
+            return;
+        }
+
+
+        const durationInHours =
+            (end - start) / (1000 * 60 * 60);
+
+
+        const totalPrice = durationInHours * rate;
+
+        const allBookingData = {
+            userId: user.id,
+            userName: user.name,
+
+            roomId: _id,
+            name,
+
+            bookingDate,
+            startTime,
+            endTime,
+
+            duration: durationInHours,
+            hourlyRate: rate,
+            totalPrice,
+
+            description,
+            image,
+            floor,
+            capacity,
+            amenities,
+        };
+
+        const { data: tokenData } = await authClient.token();
+        const { token } = tokenData;
+
+        toast.promise(
+            fetch(`${process.env.NEXT_PUBLIC_SERVER_SIDE_URL}/bookings`, {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                    Authorization: token
+                },
+                body: JSON.stringify(allBookingData),
+            }).then(async (res) => {
+
+                const data = await res.json();
+
+                if (!res.ok) {
+                    throw new Error(
+                        data.message || "Booking failed!"
+                    );
+                }
+
+                return data;
+            }),
+            {
+                loading: "Booking in progress...",
+                success: `${name} booked successfully!`,
+                error: (error) => error.message,
+            }
+        );
+
+        router.push("/my-bookings")
+
+
+    };
 
     return (
         <div>
