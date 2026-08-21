@@ -14,9 +14,7 @@ const BookingCard = ({ room }) => {
     const [bookingDate, setBookingDate] = useState("");
     const [startTime, setStartTime] = useState("");
     const [endTime, setEndTime] = useState("");
-    console.log(room);
-    console.log("session", data);
-
+    
     if (!room) return null;
 
     const {

@@ -2,7 +2,9 @@ import Image from "next/image";
 import { Card, Button } from "@heroui/react";
 import { ArrowRight, Clock } from "lucide-react";
 import Link from "next/link";
-
+export const metadata = {
+    title: "Rooms",
+};
 
 const AllRoomPage = async () => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_SIDE_URL}/rooms`);

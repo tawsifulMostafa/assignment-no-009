@@ -5,7 +5,9 @@ import { Button } from "@heroui/react";
 import { headers } from "next/headers";
 import Link from "next/link";
 
-
+export const metadata = {
+    title: "My Bookings"
+};
 const MyBookingsPage = async () => {
     const session = await sessionCheck();
     const userId = session?.user?.id;
@@ -13,11 +15,7 @@ const MyBookingsPage = async () => {
         headers: await headers()
     })
 
-    console.log(token);
-
- 
-
-
+  
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_SIDE_URL}/booking/${userId}`, {
         cache: "no-store",
          headers: {
@@ -26,7 +24,6 @@ const MyBookingsPage = async () => {
     });
 
     const bookings = await res.json();
-    console.log(bookings);
 
     if (bookings.length === 0) {
         return (

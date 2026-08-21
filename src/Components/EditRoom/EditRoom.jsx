@@ -13,9 +13,11 @@ import {
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
+import Amenities from "../Amenities/Amenities";
 
 const EditRoom = ({ room }) => {
     const [isOpen, setIsOpen] = useState(false)
+    const [amenities, setAmenities] = useState(room.amenities || []);
     const router = useRouter()
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -28,14 +30,11 @@ const EditRoom = ({ room }) => {
             capacity: Number(formData.get("capacity")),
             rate: Number(formData.get("rate")),
             image: formData.get("image"),
-            amenities: formData
-                .get("amenities")
-                .split(",")
-                .map((item) => item.trim()),
+            amenities: amenities,
             description: formData.get("description"),
         };
 
-        
+
         const { data: tokenData } = await authClient.token();
         const { token } = tokenData;
 
@@ -210,20 +209,10 @@ const EditRoom = ({ room }) => {
                                             {/* Amenities */}
                                             <div className="md:col-span-2">
 
-                                                <TextField
-                                                    name="amenities"
-                                                    isRequired
-                                                    defaultValue={room.amenities?.join(", ")}
-                                                >
-                                                    <Label>
-                                                        Amenities
-                                                    </Label>
-
-                                                    <Input
-                                                        placeholder="Wi-Fi, Whiteboard, Projector"
-                                                        className="rounded-2xl"
-                                                    />
-                                                </TextField>
+                                                <Amenities
+                                                    amenities={amenities}
+                                                    setAmenities={setAmenities}
+                                                />
 
                                             </div>
 

@@ -6,6 +6,10 @@ import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 
+export const metadata = {
+    title: "My Listings"
+};
+
 const MyListingsPage = async () => {
     const session = await sessionCheck();
     const userId = session?.user?.id;

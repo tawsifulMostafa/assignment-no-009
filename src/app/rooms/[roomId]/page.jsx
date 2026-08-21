@@ -5,6 +5,9 @@ import BookingCard from "@/Components/BookingCard/BookingCard";
 import { sessionCheck } from "@/app/lib/session";
 import EditRoom from "@/Components/EditRoom/EditRoom";
 import DeleteRoom from "@/Components/DeleteRoom/DeleteRoom";
+export const metadata = {
+    title: "Rooms - details",
+};
 
 
 const RoomDetailsPage = async ({ params }) => {

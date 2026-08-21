@@ -1,0 +1,97 @@
+"use client"
+import { authClient, signIn } from "@/app/lib/auth-client";
+import { Button, Description, FieldError, Form, Input, Label, TextField } from "@heroui/react";
+import { Icon } from "@iconify/react";
+import { Check } from "lucide-react";
+import Link from "next/link";
+import { toast } from "sonner";
+
+const LoginForm = () => {
+
+    const handleGoogleLogin = async () => {
+        await signIn.social({
+            provider: "google",
+        });
+
+    }
+
+    const onSubmit = async (e) => {
+        e.preventDefault()
+        const formData = new FormData(e.currentTarget)
+        const loginData = Object.fromEntries(formData.entries())
+
+
+        const { data, error } = await authClient.signIn.email({
+            email: loginData.email,
+            password: loginData.password,
+            rememberMe: true,
+            callbackURL: process.env.NEXT_PUBLIC_SERVER_SIDE_URL
+        })
+        if (error) {
+            toast.error("Wrong credentials")
+        } else {
+            toast.success("Login Successful")
+
+        }
+
+    }
+    return (
+        <div>
+            <Form className="flex w-96 flex-col gap-4 justify-center mx-auto border p-10 m-10 rounded-xl" onSubmit={onSubmit}>
+
+                <TextField
+                    isRequired
+                    name="email"
+                    type="email"
+                    validate={(value) => {
+                        if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
+                            return "Please enter a valid email address";
+                        }
+                        return null;
+                    }}
+                >
+                    <Label>Email</Label>
+                    <Input placeholder="Enter Your Email" />
+                    <FieldError />
+                </TextField>
+
+                <TextField
+                    isRequired
+                    minLength={8}
+                    name="password"
+                    type="password"
+                    validate={(value) => {
+                        if (value.length < 8) {
+                            return "Password must be at least 8 characters";
+                        }
+                        if (!/[A-Z]/.test(value)) {
+                            return "Password must contain at least one uppercase letter";
+                        }
+                        if (!/[0-9]/.test(value)) {
+                            return "Password must contain at least one number";
+                        }
+                        return null;
+                    }}
+                >
+                    <Label>Password</Label>
+                    <Input placeholder="Enter your password" />
+                    <Description>Must be at least 8 characters with 1 uppercase and 1 number</Description>
+                    <FieldError />
+                </TextField>
+                <div className="grid gap-3">
+                    <Button className={"w-full"} type="submit">
+                        <Check />  Submit
+                    </Button>
+                    <Link href={"/signup"}>
+                        <Button className={"w-full"}>SignUp?</Button></Link>
+                    <Button onClick={handleGoogleLogin} className="w-full" variant="tertiary">
+                        <Icon icon="devicon:google" />
+                        Sign in with Google
+                    </Button>
+                </div>
+            </Form>
+        </div>
+    );
+};
+
+export default LoginForm;
