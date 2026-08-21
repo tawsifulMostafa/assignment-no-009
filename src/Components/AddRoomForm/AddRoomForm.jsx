@@ -209,10 +209,12 @@ const AddRoomForm = ({ user }) => {
                                 </p>
                             </div>
 
-                            <Amenities
-                                amenities={amenities}
-                                setAmenities={setAmenities}
-                            />
+                     
+                                <Amenities
+                                    amenities={amenities}
+                                    setAmenities={setAmenities}
+                                />
+                         
                         </div>
 
                     </Fieldset.Group>

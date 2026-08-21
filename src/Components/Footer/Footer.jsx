@@ -32,7 +32,7 @@ const Footer = () => {
                             StudyNook  <BookOpen></BookOpen>
                         </h1>
                         <h2 className="text-lg font-semibold text-purple-100">
-                            Book Borrowing Platform
+                            Study Room Borrowing Platform
                         </h2>
                         <p className="text-sm text-purple-300 leading-relaxed">
                             Your digital platform for booking and managing study rooms.
@@ -74,9 +74,9 @@ const Footer = () => {
                     {/* Categories Column */}
                     <div className="flex flex-col gap-3">
                         <h3 className="text-base font-bold uppercase tracking-widest text-purple-300 border-b border-purple-500/40 pb-2">
-                            RiverSide
+                            Room Categories
                         </h3>
-                        {["Story", "Tech", "Science"].map((cat) => (
+                        {["history", "Tech", "lab"].map((cat) => (
                             <a
                                 key={cat}
                                 href="#"

@@ -19,10 +19,9 @@ const channels = [
 export default function Amenities({ amenities, setAmenities }) {
   return (
     <div>
-      <Label>Amenities</Label>
 
       <CheckboxGroup
-        className="gap-3 grid grid-cols-3 items-center p-4"
+        className="gap-3 p-4"
         name="amenities"
         value={amenities}
         onChange={setAmenities}

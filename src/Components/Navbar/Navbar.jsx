@@ -1,15 +1,10 @@
-import Link from "next/link";
-import { auth } from "@/app/lib/auth";
-import { headers } from "next/headers";
 import NavbarClient from "./NavbarClient";
+import { sessionCheck } from "@/app/lib/session";
 
 const Navbar = async () => {
-    const session = await auth.api.getSession({
-        headers: await headers(),
-    });
-
-    const user = session?.user;
-
+    const session = await sessionCheck();
+    const user = session?.user
+ 
     return (
         <NavbarClient user={user} />
     );

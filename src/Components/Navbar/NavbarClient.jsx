@@ -1,5 +1,4 @@
-"use client";
-
+"use client"; 
 import { useState } from "react";
 import { Button } from "@heroui/react";
 import Link from "next/link";

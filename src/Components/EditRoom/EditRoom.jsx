@@ -208,6 +208,8 @@ const EditRoom = ({ room }) => {
 
                                             {/* Amenities */}
                                             <div className="md:col-span-2">
+                                                
+                                                <p>Choose Amenities</p>
 
                                                 <Amenities
                                                     amenities={amenities}

@@ -26,7 +26,7 @@ const AddRoomsPage = async() => {
                 </div>
 
                 {/* Form Card */}
-                <Surface className="rounded-3xl border border-default-200 bg-white p-5 shadow-sm sm:p-8">
+                <Surface className="rounded-3xl border grid  border-default-200 bg-white p-5 shadow-sm sm:p-8">
                    <AddRoomForm user = {user}/>
                 </Surface>
             </div>
